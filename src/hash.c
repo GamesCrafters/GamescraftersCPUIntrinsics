@@ -23,7 +23,7 @@ static int item_count(int* board, int size, int item) {
 	}
 	return total;
 }
-static int hash_helper(int* board, int size, int X, int O) {
+static long hash_helper(int* board, int size, int X, int O) {
 	if (((X == 0) && (O == 0)) || (size == X) || (size == O) || (size == 0)) {
 		return 0;
 	}
@@ -35,13 +35,12 @@ static int hash_helper(int* board, int size, int X, int O) {
 		return (((X+O) == size ? 0 : count(size-1,X,O)) + (X == 0 ? 0 : count(size-1,X-1,O)) + hash_helper(board+1,size-1,X,O-1));
 	}
 }
-int hash_count(int spaces, int max_X, int max_O) {
-	int total = 0;
+long hash_count(int spaces, int max_X, int max_O) {
+	long total = 0;
 	int i = 0; 
 	int j = 0;
 	while (!(i > max_X)) {
-		total += count(spaces,i,j);
-		printf("%u possible board, at i = %u, j = %u\n",total,i,j); 
+		total += (long) count(spaces,i,j);
 		if (i == j) {
 			i++;
 		} else {
@@ -50,7 +49,7 @@ int hash_count(int spaces, int max_X, int max_O) {
 	}
 	return total;
 }
-int hash(int* board, int size) {
+long hash(int* board, int size) {
 	return hash_helper(board,size,item_count(board,size,1),item_count(board,size,2));
 }
 static int* createTestBoard() {
@@ -70,7 +69,7 @@ static void printBoard(int* board) {
 	for (int i = 0; i < 4; i++) {
 		printf("%u %u %u %u\n",*(board+(4*i)),*(board+(4*i)+1),*(board+(4*i)+2),*(board+(4*i)+3));
 	}
-}
+}/*
 int main() {
 	int hashSize = hash_count(16,8,8);
 	printf("Hash universe size %u\n",hashSize);
@@ -79,4 +78,4 @@ int main() {
 	int hashValue = hash(board,16);
 	printf("%u\n",hashValue);
 	return 0;
-}
+}*/

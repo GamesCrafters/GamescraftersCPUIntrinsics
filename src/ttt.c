@@ -16,7 +16,7 @@ int* doMove(int* start, int move,table_t* t) {
     memcpy(new,start,16);
     *(new+move) = 1;
     reflect(new);
-    sym_check(new, t);
+    sym_check(new, t,16);
     return new;
 }
 move_list_t* generateMoves(int* start) {
@@ -87,13 +87,4 @@ int primitiveValue(int* start) {
         return 4;
     } 
     return 0;
-}
-int hash(int* pos) {
-    int pow = 1;
-    int hash = 0;
-    for (int i = 0; i < 16; i++) {
-        hash += *(pos+i) * pow;
-        pow *= 3;
-    }
-    return hash;
 }
