@@ -1,4 +1,4 @@
-CC = gcc-9
+CC = gcc
 CFLAGS = -g -mavx
 DEFS = SIMD
 DEPS = hashtable.h 4x4.h sym_check.h ttt.h solver.h 
