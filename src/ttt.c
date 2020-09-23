@@ -1,20 +1,33 @@
 #include <string.h>
+#include <stdlib.h>
+#include "ttt.h"
+
+static void reflect(int* board) {
+    for (int i = 0; i < 16; i++) {
+        if (*(board+i) == 1) {
+            *(board+i) = 2;
+        } else if (*(board+i) == 2) {
+            *(board+i) = 1;
+        }
+    }
+}
 int* doMove(int* start, int move,table_t* t) {
     int* new = malloc(sizeof(int)*16);
     memcpy(new,start,16);
-    *(new+i) = 1;
-    sym_check(new,table_t* t);
+    *(new+move) = 1;
+    reflect(new);
+    sym_check(new, t);
     return new;
 }
 move_list_t* generateMoves(int* start) {
     int count = 0;
-    move_list_t* mvlist = malloc(sizeof(move_list));
+    move_list_t* mvlist = malloc(sizeof(move_list_t));
     for (int i = 0; i < 16; i++) {
         if (*(start+i) == 0) {
             count++;
         }
     }
-    mvlist->count = count
+    mvlist->count = count;
     mvlist->moves = malloc(sizeof(int)*count);
     int temp = 0;
     for (int i = 0; i < 16; i++) {
@@ -32,7 +45,7 @@ int primitiveValue(int* start) {
     for (int i = 0; i < 4; i++) {
         k = 0;
         for (int j = 0; j < 4; j++) {
-            if (*(start+i+(4*j) == 2) {
+            if (*(start+i+(4*j)) == 2) {
                 k++;
             }
         }
@@ -43,7 +56,7 @@ int primitiveValue(int* start) {
     for (int i = 0; i < 4; i++) {
         k = 0;
         for (int j = 0; j < 4; j++) {
-            if (*(start+j+(4*i) == 2) {
+            if (*(start+j+(4*i)) == 2) {
                 k++;
             }
         }
@@ -53,7 +66,7 @@ int primitiveValue(int* start) {
     }
     k = 0;
     for (int i = 0; i < 4; i++) {
-        if (*(start+i+(4*i) == 2) {
+        if (*(start+i+(4*i)) == 2) {
             k++;
         }
     }
@@ -62,7 +75,7 @@ int primitiveValue(int* start) {
     }
     k = 0; 
     for (int i = 0; i < 4; i++) {
-        if (*(start+(4-i)+(4*i) == 2) {
+        if (*(start+(4-i)+(4*i)) == 2) {
             k++;
         }
     }
