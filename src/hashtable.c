@@ -3,18 +3,24 @@
 #include "hashtable.h"
 #include "hash.h"
 //With rearranger hash no collisions are possible
-void table_init(table_t** t, long size,int boardsize) {
+void table_init(table_t** t,int size,int boardsize) {
     table_t* table = *t;
+    int* hash_table = malloc(sizeof(int) * size);
+    for (int i = 0; i < size; i++) {
+	*(hash_table+i) = -1;
+    }
     table = malloc(sizeof(table_t));
     table->size = size;
-    table->table = malloc(sizeof(int)* table->size);
-    for (long i = 0; i < table->size; i++) {
+    //table->table = malloc(sizeof(int)* table->size);
+    table->table = hash_table;
+    /*
+    for (int i = 0; i < table->size; i++) {
         table->table[i] = -1;
-    }
+    }*/
 }
 
 int table_search(table_t* table,int* state,int boardsize) {
-    long hashIndex = hash(state,boardsize); 
+    int hashIndex = hash(state,boardsize); 
     return table->table[hashIndex];
     /*
     while(table->table[hashIndex].key != NULL) {
@@ -27,7 +33,7 @@ int table_search(table_t* table,int* state,int boardsize) {
     return -1; */
 }
 void table_insert(table_t* table, int* state, int boardsize, int data) {
-    long hashIndex = hash(state,boardsize);
+    int hashIndex = hash(state,boardsize);
     table->table[hashIndex] = data;
     /*
     while(table->table[hashIndex].key != NULL) {

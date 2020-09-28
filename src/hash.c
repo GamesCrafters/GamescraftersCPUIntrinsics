@@ -9,7 +9,9 @@ static long factorial(long n) {
 	}
 }
 static int choose(int n, int k) {
-	return factorial((long) n)/(factorial((long) (n-k))*factorial((long) k));
+	long choose = factorial((long) n)/(factorial((long) (n-k))*factorial((long) k));
+	return (int) choose;
+	//return (int) factorial((long) n)/(factorial((long) (n-k))*factorial((long) k));
 }
 static int count(int spaces, int X, int O) {
 	return (choose(spaces,X+O) * choose(X+O,X));
@@ -23,7 +25,7 @@ static int item_count(int* board, int size, int item) {
 	}
 	return total;
 }
-static long hash_helper(int* board, int size, int X, int O) {
+static int hash_helper(int* board, int size, int X, int O) {
 	if (((X == 0) && (O == 0)) || (size == X) || (size == O) || (size == 0)) {
 		return 0;
 	}
@@ -35,12 +37,12 @@ static long hash_helper(int* board, int size, int X, int O) {
 		return (((X+O) == size ? 0 : count(size-1,X,O)) + (X == 0 ? 0 : count(size-1,X-1,O)) + hash_helper(board+1,size-1,X,O-1));
 	}
 }
-long hash_count(int spaces, int max_X, int max_O) {
-	long total = 0;
+int hash_count(int spaces, int max_X, int max_O) {
+	int total = 0;
 	int i = 0; 
 	int j = 0;
 	while (!(i > max_X)) {
-		total += (long) count(spaces,i,j);
+		total +=  count(spaces,i,j);
 		if (i == j) {
 			i++;
 		} else {
@@ -49,7 +51,7 @@ long hash_count(int spaces, int max_X, int max_O) {
 	}
 	return total;
 }
-long hash(int* board, int size) {
+int hash(int* board, int size) {
 	return hash_helper(board,size,item_count(board,size,1),item_count(board,size,2));
 }
 static int* createTestBoard() {
