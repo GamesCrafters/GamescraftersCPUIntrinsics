@@ -1,3 +1,3 @@
 #include "hashtable.h"
 #include "ttt.h"
-void solver(int* start, table_t* t,int size);
+void solver(int* start, table_t* t);

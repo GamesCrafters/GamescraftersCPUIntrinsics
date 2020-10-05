@@ -43,6 +43,12 @@ void rotate(int* position) {
 	flip(position);
 	transpose(position);
 }
+void arr_copy(int* dst, int* src) {
+	_mm_store_si128(&dst[0*4],_mm_load_si128(&src[0*4]));
+	_mm_store_si128(&dst[1*4],_mm_load_si128(&src[1*4]));
+	_mm_store_si128(&dst[2*4],_mm_load_si128(&src[2*4]));
+	_mm_store_si128(&dst[3*4],_mm_load_si128(&src[3*4]));
+}
 #else
 static void transpose(int* position) {
     int temp;
@@ -67,5 +73,10 @@ void flip(int* position) {
 void rotate(int* position) {
 	flip(position);
 	transpose(position);
+}
+void arr_copy(int* dst, int* src) {
+	for (int i = 0; i < 16; i++) {
+		*(dst+i) = *(src+i);
+	}
 }
 #endif

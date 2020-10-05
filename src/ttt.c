@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "ttt.h"
-
+#include "4x4.h"
 static void reflect(int* board) {
     for (int i = 0; i < 16; i++) {
         if (*(board+i) == 1) {
@@ -13,10 +13,10 @@ static void reflect(int* board) {
 }
 int* doMove(int* start, int move,table_t* t) {
     int* new = malloc(sizeof(int)*16);
-    memcpy(new,start,16);
+    arr_copy(new,start);
     *(new+move) = 1;
     reflect(new);
-    sym_check(new, t,16);
+    sym_check(new, t);
     return new;
 }
 move_list_t* generateMoves(int* start) {
@@ -39,7 +39,7 @@ move_list_t* generateMoves(int* start) {
     return mvlist;
 }
 
-int primitiveValue(int* start) {
+char primitiveValue(int* start) {
     //may need to flip from 2 to 1
     int k;
     for (int i = 0; i < 4; i++) {
@@ -87,4 +87,8 @@ int primitiveValue(int* start) {
         return 4;
     } 
     return 0;
+}
+void free_move_list_t(move_list_t* ml) {
+    free(ml->moves);
+    free(ml);
 }
