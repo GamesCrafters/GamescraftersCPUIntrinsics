@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -mavx
+CFLAGS = -g -mavx -fopenmp
 #DEFS = -D SIMD
 DEPS = hashtable.h 4x4.h sym_check.h ttt.h solver.h hash.h 
 OBJ = hashtable.o 4x4.o sym_check.o ttt.o solver.o hash.o

@@ -12,6 +12,8 @@ int main(int argc, char** argv) {
     }
     table_t* t = table_init(16,8,8);
     solver(board,t);
+    char result = table_search(t,board);
+    printf("Game is a %c\n",result);
     table_free(t);
-    return 0;
+    return (int) result;
 }

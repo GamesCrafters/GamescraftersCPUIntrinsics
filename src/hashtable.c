@@ -7,8 +7,7 @@ table_t* table_init(int boardsize,int max_X, int max_Y) {
     init_hash(boardsize);
     table_t* t = malloc(sizeof(table_t));
     t->size = hash_count(boardsize,max_X,max_Y);
-    t->table = malloc(sizeof(char) * t->size);
-    memset(t->table,-1,(size_t) t->size);
+    t->table = calloc(t->size,sizeof(char));
     return t;
     //table->table = malloc(sizeof(int)* table->size);
     /*
